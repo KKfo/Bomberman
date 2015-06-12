@@ -1,5 +1,3 @@
-
-//Il est maintenant l’heure de tester tout ca.
 #include <Game.hh>
 #include <Clock.hh>
 #include <Input.hh>
@@ -7,13 +5,8 @@
 #include <Geometry.hh>
 #include <Texture.hh>
 #include <BasicShader.hh>
-#include <Model.hh>
-
-#include <OpenGL.hh>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp> 
+#include <Model.hh> 
 #include <cstdlib>
-
 #include "GameEngine.hpp"
 
 int main()
@@ -26,4 +19,5 @@ int main()
  while (engine.update() == true)
  engine.draw();
  return EXIT_SUCCESS;
+
 } 

@@ -8,13 +8,13 @@
 ## 
 ##
 
-BMBR_SRC =		src/tmp/*.cpp
+BMBR_SRC =		src/tmp/test.cpp
 
 BMBR_OBJ =		$(BMBR_SRC:.c=.o)
 
 DEPS =		
 
-BMBR =		bomberman
+BMBR =		bin/bomberman
 
 CC =		g++
 
@@ -26,8 +26,7 @@ all:		$(BMBR)
 
 $(BMBR):	$(BMBR_OBJ)
 			$(CC) $(BMBR_SRC) -Ilib/LibBomberman_linux_x64/includes/ -Llib/LibBomberman_linux_x64/libs/ \
-			-lgdl_gl -lGL -lGLEW -ldl -lrt -lfbxsdk -lSDL2 -lpthread -o bin/$(BMBR)
-
+			-lgdl_gl -lGL -lGLEW -ldl -lrt -lfbxsdk -lSDL2 -lpthread -o $(BMBR)
 
 clean:
 			$(RM) $(BMBR_OBJ)
