@@ -121,10 +121,10 @@ public:
 
     _geometry.setColor(glm::vec4(1, 1, 1, 1));
 
-    _geometry.pushVertex(glm::vec3(7, -7, -7));
-    _geometry.pushVertex(glm::vec3(7, -7, 7));
-    _geometry.pushVertex(glm::vec3(-7, -7, 7));
-    _geometry.pushVertex(glm::vec3(-7, -7, -7));
+    _geometry.pushVertex(glm::vec3(1, -1, -1));
+    _geometry.pushVertex(glm::vec3(1, -1, 1));
+    _geometry.pushVertex(glm::vec3(-1, -1, 1));
+    _geometry.pushVertex(glm::vec3(-1, -1, -1));
 
     _geometry.pushUv(glm::vec2(0.0f, 0.0f));
     _geometry.pushUv(glm::vec2(1.0f, 0.0f));
@@ -173,7 +173,8 @@ private:
   float _speed;
 
 public:
-  Marvin() : sc(.001,.001,.001){ this->scale(sc);}
+  Marvin() {}//: sc(.1,.1,.1){ this->scale(sc);}
+  Marvin(int x, int y, int z): AObject(x,y,z), sc(.001,.001,.001){ this->scale(sc);}
   virtual ~Marvin() { }
 
   virtual bool initialize()
@@ -197,54 +198,26 @@ public:
     // On multiplie par le temps ecoule depuis la derniere image pour que la vitesse ne depende pas de la puissance de l'ordinateur
     if (input.getKey(SDLK_UP))
       {
-	// bomberman.setCurrentAnim(1, true);
-	// bomberman.createSubAnim(0, "abcd", 0, 200);
-	// bomberman.setCurrentSubAnim("abcd");
-	// std::cout << bomberman.getAnimationFrameNumber("run") << std::endl;
-	// if (bomberman.getAnimationFrameNumber(2) > 0)
-	//   {
-	//   }
-	// if (_rotation.y < 50 && _rotation.y > -50 || _rotation.y > -216 &&  _rotation.y < -144 || (_rotation.y < -330  || _rotation.y > 330))
-	  pos.z = 1;
-	// else
-	//   {
-	//     if (_rotation.y < 0)
-	//       pos.x = -1;
-	//     else
-	//       pos.x = 1;
-	//   }
-	  _rotation.y = 0;
-	  translate(pos * delta);
-      }
-    if (input.getKey(SDLK_DOWN))
-      {
-	// if (_rotation.y < 50 && _rotation.y > -50 || _rotation.y > -216 &&  _rotation.y < -144 || (_rotation.y < -330 || _rotation.y > 330))
-	   pos.z = -1;
-	// else
-	//   {
-	//     if (_rotation.y < 0)
-	//       pos.x = 1;
-	//     else
-	//       pos.x = -1;
-	//   }
-	   _rotation.y = 180;
-	   translate(pos * delta);
-      }
-    if (input.getKey(SDLK_LEFT))
-      {
 	pos.x = 1;
-	//rotate(glm::vec3(0, -1, 0), 4.0f);
-	// std::cout << clock.getElapsed() << std::endl;
-	//translate(glm::vec3(-1, 0, 0) * static_cast<float>(clock.getElapsed()) * _speed);
 	_rotation.y = -90;
 	translate(pos * delta);  
       }
-    if (input.getKey(SDLK_RIGHT))
+    if (input.getKey(SDLK_DOWN))
       {
 	pos.x = -1;
-	//rotate(glm::vec3(0, 1, 0), 4.0f);
-	//translate(glm::vec3(1, 0, 0) * static_cast<float>(clock.getElapsed()) * _speed);
 	_rotation.y = 90;
+	translate(pos * delta);
+      }
+    if (input.getKey(SDLK_LEFT))
+      {
+	pos.z = -1;
+	_rotation.y = 180;
+	translate(pos * delta);
+      }
+    if (input.getKey(SDLK_RIGHT))
+      {
+	pos.z = 1;
+	_rotation.y = 0;
 	translate(pos * delta);
       }
   }

@@ -43,7 +43,7 @@ public:
     projection = glm::perspective(60.0f, 800.0f / 600.0f, 0.1f, 100.0f);
     // La transformation de la camera correspond a son orientation et sa position
     // La camera sera ici situee a la position 0, 20, -100 et regardera vers la position 0, 0, 0
-    transformation = glm::lookAt(glm::vec3(-2, 1, -1), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+    transformation = glm::lookAt(glm::vec3(0, 2, -3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 
     // On doit toujours binder le shader avant d'appeler les methodes setUniform
     _shader.bind();
@@ -61,28 +61,28 @@ public:
     AObject *cube44 = new Cube(13,0,-10);
 
     AObject *cube11 = new Cube(-13,0, 0);
-    AObject *cube1 = new Cube(26,0,0);
+    AObject *cube1 = new Cube(0,0,0);
     
-    AObject *marv = new Marvin();
+    AObject *marv = new Marvin(0,-1.5,0);
     if (cube1->initialize() == false ||
-	cube2->initialize() == false ||
-	cube3->initialize() == false ||
-	cube4->initialize() == false ||
-	cube11->initialize() == false ||
-	cube22->initialize() == false ||
-	cube33->initialize() == false ||
-	cube44->initialize() == false ||
+	// cube2->initialize() == false ||
+	// cube3->initialize() == false ||
+	// cube4->initialize() == false ||
+	// cube11->initialize() == false ||
+	// cube22->initialize() == false ||
+	// cube33->initialize() == false ||
+	// cube44->initialize() == false ||
 
 	marv->initialize() == false)
       return (false);
     _objects.push_back(cube1);
-    _objects.push_back(cube2);
-    _objects.push_back(cube3);
-    _objects.push_back(cube4);
-    _objects.push_back(cube11);
-    _objects.push_back(cube22);
-    _objects.push_back(cube33);
-    _objects.push_back(cube44);
+    // _objects.push_back(cube2);
+    // _objects.push_back(cube3);
+    // _objects.push_back(cube4);
+    // _objects.push_back(cube11);
+    // _objects.push_back(cube22);
+    // _objects.push_back(cube33);
+    // _objects.push_back(cube44);
     
     _objects.push_back(marv);
     return true;
