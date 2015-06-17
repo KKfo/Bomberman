@@ -112,7 +112,7 @@ public:
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // pour utiliser un shader (pour que ce soit ce dernier qui dessine la geometrie) il faut le binder.
     // Un seul shader peut etre actif en meme temps
-    _shader.setUniform("view", cam.Gettransf());
+    _shader.setUniform("view", cam.getTrans());
     _shader.bind();
  
 

@@ -196,25 +196,25 @@ public:
     glm::vec3 pos = glm::vec3(0, 0, 0);
     float delta = static_cast<float>(clock.getElapsed()) * _speed;
     // On multiplie par le temps ecoule depuis la derniere image pour que la vitesse ne depende pas de la puissance de l'ordinateur
-    if (input.getKey(SDLK_UP))
+    if (input.getKey(SDLK_LEFT))
       {
 	pos.x = 1;
 	_rotation.y = -90;
 	translate(pos * delta);  
       }
-    if (input.getKey(SDLK_DOWN))
+    if (input.getKey(SDLK_RIGHT))
       {
 	pos.x = -1;
 	_rotation.y = 90;
 	translate(pos * delta);
       }
-    if (input.getKey(SDLK_LEFT))
+    if (input.getKey(SDLK_UP))
       {
 	pos.z = -1;
 	_rotation.y = 180;
 	translate(pos * delta);
       }
-    if (input.getKey(SDLK_RIGHT))
+    if (input.getKey(SDLK_DOWN))
       {
 	pos.z = 1;
 	_rotation.y = 0;
@@ -267,14 +267,14 @@ public:
 
   glm::mat4 getTrans()
   {
-    glm::mat4 transform(1); // On cree une matrice identite
+    glm::mat4 transform; // On cree une matrice identite
 
     // On applique ensuite les rotations selon les axes x, y et z
     transform = glm::translate(transform, _position);
     // transform = glm::rotate(transform, _rotation.x, glm::vec3(1, 0, 0)); 
 
 
-    transform = glm::rotate(transform, _rotation.y, glm::vec3(0, -1, 0));
+    transform = glm::rotate(transform, _rotation.y, glm::vec3(0, 1, 0));
     // transform = glm::rotate(transform, _rotation.z, glm::vec3(0, 0, 1));
     // On effectue ensuite la translation
     // Et pour finir, on fait la mise a l'echelle
@@ -286,7 +286,7 @@ public:
   virtual void update(gdl::Clock const &clock, gdl::Input &input)
   {
     glm::vec3 pos = glm::vec3(0, 0, 0);
-    float delta = static_cast<float>(clock.getElapsed()) * _speed;
+    float delta = static_cast<float>(clock.getElapsed()) * 1.0f;
     // On multiplie par le temps ecoule depuis la derniere image pour que la vitesse ne depende pas de la puissance de l'ordinateur
     if (input.getKey(SDLK_e))
       {
@@ -312,12 +312,19 @@ public:
 	//_rotation.y = 0;
 	trans(pos * delta);
       }
+      if (input.getKey(SDLK_u))
+      {
+	pos.y = 10;
+	//_rotation.y = 0;
+	trans(pos * delta);
+      }
+        if (input.getKey(SDLK_j))
+      {
+	pos.y = -10;
+	//_rotation.y = 0;
+	trans(pos * delta);
+      }
     // transformation = getTrans();
-  }
-
-  glm::mat4 Gettransf()
-  {
-    return (getTrans());
   }
   
   virtual void draw(gdl::AShader &shader, gdl::Clock const &clock)
