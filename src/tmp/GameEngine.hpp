@@ -9,6 +9,9 @@
 /*
   On cree sa class GameEngine qui herite de game
 */
+
+Camera cam;
+
 class GameEngine : public gdl::Game
 {
 public:
@@ -43,7 +46,7 @@ public:
     projection = glm::perspective(60.0f, 800.0f / 600.0f, 0.1f, 100.0f);
     // La transformation de la camera correspond a son orientation et sa position
     // La camera sera ici situee a la position 0, 20, -100 et regardera vers la position 0, 0, 0
-    transformation = glm::lookAt(glm::vec3(0, 2, -3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+    transformation = glm::lookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
 
     // On doit toujours binder le shader avant d'appeler les methodes setUniform
     _shader.bind();
@@ -63,7 +66,7 @@ public:
     AObject *cube11 = new Cube(-13,0, 0);
     AObject *cube1 = new Cube(0,0,0);
     
-    AObject *marv = new Marvin(0,-1.5,0);
+    AObject *marv = new Marvin(0,-1,-10);
     if (cube1->initialize() == false ||
 	// cube2->initialize() == false ||
 	// cube3->initialize() == false ||
@@ -99,6 +102,7 @@ public:
     // Mise a jour des differents objets
     for (size_t i = 0; i < _objects.size(); ++i)
       _objects[i]->update(_clock, _input);
+    cam.update(_clock, _input);
     return true;
   }
 
@@ -108,10 +112,10 @@ public:
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // pour utiliser un shader (pour que ce soit ce dernier qui dessine la geometrie) il faut le binder.
     // Un seul shader peut etre actif en meme temps
+    _shader.setUniform("view", cam.Gettransf());
     _shader.bind();
  
 
-    glm::vec3 pos(1,1,1);
     // On dessine tous les objets composant la scene
     for (size_t i = 0; i < _objects.size(); ++i)
       _objects[i]->draw(_shader, _clock);

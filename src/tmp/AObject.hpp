@@ -234,3 +234,101 @@ public:
   }
 
 };
+
+class Camera : public AObject
+{
+private:
+  glm::vec3 sc;
+  float _speed;
+  glm::mat4 transformation;
+public:
+  Camera() {}//: sc(.1,.1,.1){ this->scale(sc);}
+  Camera(int x, int y, int z): AObject(x,y,z){}
+  virtual ~Camera() { }
+
+  virtual bool initialize()
+  { 
+  }
+
+  void trans(glm::vec3 const &v)
+  {
+    _position += v;
+  }
+
+  void rot(glm::vec3 const& axis, float angle)
+  {
+    _rotation += axis * angle;
+  }
+
+  void scale(glm::vec3 const& scale)
+  {
+    _scale *= scale;
+  }
+
+  glm::mat4 getTrans()
+  {
+    glm::mat4 transform(1); // On cree une matrice identite
+
+    // On applique ensuite les rotations selon les axes x, y et z
+    transform = glm::translate(transform, _position);
+    // transform = glm::rotate(transform, _rotation.x, glm::vec3(1, 0, 0)); 
+
+
+    transform = glm::rotate(transform, _rotation.y, glm::vec3(0, -1, 0));
+    // transform = glm::rotate(transform, _rotation.z, glm::vec3(0, 0, 1));
+    // On effectue ensuite la translation
+    // Et pour finir, on fait la mise a l'echelle
+    transform = glm::scale(transform, _scale);
+    return (transform);
+  }
+
+  // Ici le cube bougera avec les fleches du clavier
+  virtual void update(gdl::Clock const &clock, gdl::Input &input)
+  {
+    glm::vec3 pos = glm::vec3(0, 0, 0);
+    float delta = static_cast<float>(clock.getElapsed()) * _speed;
+    // On multiplie par le temps ecoule depuis la derniere image pour que la vitesse ne depende pas de la puissance de l'ordinateur
+    if (input.getKey(SDLK_e))
+      {
+	pos.z = 10;
+	_rotation.y = 0;
+	translate(pos * delta);  
+      }
+    if (input.getKey(SDLK_d))
+      {
+	pos.z = -10;
+	//_rotation.y = 90;
+	trans(pos * delta);
+      }
+    if (input.getKey(SDLK_s))
+      {
+	pos.x = -10;
+	//_rotation.y = 180;
+	trans(pos * delta);
+      }
+    if (input.getKey(SDLK_f))
+      {
+	pos.x = 10;
+	//_rotation.y = 0;
+	trans(pos * delta);
+      }
+    // transformation = getTrans();
+  }
+
+  glm::mat4 Gettransf()
+  {
+    return (getTrans());
+  }
+  
+  virtual void draw(gdl::AShader &shader, gdl::Clock const &clock)
+  {
+    (void)clock;
+    // On bind la texture pour dire que l'on veux l'utiliser
+    // Et on dessine notre cube
+    // std::cout << static_cast<float>(clock.getElapsed()) * _speed << std::endl;
+    // std::cout << "pos x: " << _position.x <<  " pos y: " << _position.y <<  "pos z: " << _position.z << std::endl;
+    std::cout << _position << std::endl;
+    // this->bomberman.draw(shader, getTransformation(), static_cast<float>(clock.getElapsed()));
+  }
+
+};
