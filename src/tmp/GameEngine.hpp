@@ -21,7 +21,7 @@ public:
 
   bool initialize()
   {
-    if (!_context.start(800, 600, "My bomberman!")) // on cree une fenetre
+    if (!_context.start(1920, 1080, "My bomberman!")) // on cree une fenetre
       return false;
 
     // On active le test de profondeur d'OpenGL pour que les pixels que l'oeil ne voit pas ne s'affichent pas
@@ -43,7 +43,7 @@ public:
     glm::mat4 transformation;
 
     // La projection de la camera correspond a la maniere dont les objets vont etre dessine a l'ecran
-    projection = glm::perspective(60.0f, 800.0f / 600.0f, 0.1f, 100.0f);
+    projection = glm::perspective(90.0f, 1920.0f / 1080.0f, 0.1f, 1000.0f);
     // La transformation de la camera correspond a son orientation et sa position
     // La camera sera ici situee a la position 0, 20, -100 et regardera vers la position 0, 0, 0
     transformation = glm::lookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
@@ -55,38 +55,13 @@ public:
 
     // On va ensuite creer un cube que l'on va ajouter a la liste d'objets
 
-    AObject *cube2 = new Cube(0,0,10);
-    AObject *cube3 = new Cube(0,0, 0);
-    AObject *cube4 = new Cube(0,0,-10);
-   
-    AObject *cube22 = new Cube(13,0, 10);
-    AObject *cube33 = new Cube(13,0,0);
-    AObject *cube44 = new Cube(13,0,-10);
-
-    AObject *cube11 = new Cube(-13,0, 0);
-    AObject *cube1 = new Cube(0,0,0);
+    AObject *floor = new Floor();
     
     AObject *marv = new Marvin(0,-1,-10);
-    if (cube1->initialize() == false ||
-	// cube2->initialize() == false ||
-	// cube3->initialize() == false ||
-	// cube4->initialize() == false ||
-	// cube11->initialize() == false ||
-	// cube22->initialize() == false ||
-	// cube33->initialize() == false ||
-	// cube44->initialize() == false ||
-
+    if (floor->initialize() == false ||
 	marv->initialize() == false)
       return (false);
-    _objects.push_back(cube1);
-    // _objects.push_back(cube2);
-    // _objects.push_back(cube3);
-    // _objects.push_back(cube4);
-    // _objects.push_back(cube11);
-    // _objects.push_back(cube22);
-    // _objects.push_back(cube33);
-    // _objects.push_back(cube44);
-    
+    _objects.push_back(floor);
     _objects.push_back(marv);
     return true;
   }

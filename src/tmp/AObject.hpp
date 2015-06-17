@@ -94,7 +94,7 @@ std::ostream& operator<<(std::ostream& os, glm::vec3& v)
 
 //Nous allons donc faire à présent notre classe Cube héritant de AObject :
 
-class Cube : public AObject
+class Floor : public AObject
 {
 private:
   // La texture utilisee pour le cube
@@ -105,9 +105,9 @@ private:
   float _speed;
 
 public:
-  Cube() { }
-  Cube(int x, int y, int z): AObject(x,y,z){ }
-  virtual ~Cube() { }
+  Floor() { }
+  Floor(int x, int y, int z): AObject(x,y,z){ }
+  virtual ~Floor() { }
 
   virtual bool initialize()
   {
@@ -159,7 +159,57 @@ public:
     // On bind la texture pour dire que l'on veux l'utiliser
     _texture.bind();
     // Et on dessine notre cube
+    _position.x = 4;
+    _position.y = 0;
+    _position.z = -10;
     _geometry.draw(shader, getTransformation(), GL_QUADS);
+   
+    _position.x = 2;
+    _position.y = 0;
+    _position.z = -10;
+    _geometry.draw(shader, getTransformation(), GL_QUADS);
+
+    _position.x = 0;
+    _position.y = 0;
+    _position.z = -8;
+    _geometry.draw(shader, getTransformation(), GL_QUADS);
+
+
+    _position.x = 0;
+    _position.y = 0;
+    _position.z = -10;
+    _geometry.draw(shader, getTransformation(), GL_QUADS);
+
+    _position.x = 4;
+    _position.y = 0;
+    _position.z = -8;
+    _geometry.draw(shader, getTransformation(), GL_QUADS);
+    
+    _position.x = 2;
+    _position.y = 0;
+    _position.z = -8;
+    _geometry.draw(shader, getTransformation(), GL_QUADS);
+
+    _position.x = 0;
+    _position.y = 0;
+    _position.z = -6;
+    _geometry.draw(shader, getTransformation(), GL_QUADS);
+
+      _position.x = 4;
+    _position.y = 0;
+    _position.z = -6;
+    _geometry.draw(shader, getTransformation(), GL_QUADS);
+    
+    _position.x = 2;
+    _position.y = 0;
+    _position.z = -6;
+    _geometry.draw(shader, getTransformation(), GL_QUADS);
+
+    _position.x = 0;
+    _position.y = 0;
+    _position.z = -6;
+    _geometry.draw(shader, getTransformation(), GL_QUADS);    
+  
   }
 
 };
@@ -196,13 +246,13 @@ public:
     glm::vec3 pos = glm::vec3(0, 0, 0);
     float delta = static_cast<float>(clock.getElapsed()) * _speed;
     // On multiplie par le temps ecoule depuis la derniere image pour que la vitesse ne depende pas de la puissance de l'ordinateur
-    if (input.getKey(SDLK_LEFT))
+    if (input.getKey(SDLK_RIGHT))
       {
 	pos.x = 1;
 	_rotation.y = -90;
 	translate(pos * delta);  
       }
-    if (input.getKey(SDLK_RIGHT))
+    if (input.getKey(SDLK_LEFT))
       {
 	pos.x = -1;
 	_rotation.y = 90;
@@ -300,13 +350,13 @@ public:
 	//_rotation.y = 90;
 	trans(pos * delta);
       }
-    if (input.getKey(SDLK_s))
+    if (input.getKey(SDLK_f))
       {
 	pos.x = -10;
 	//_rotation.y = 180;
 	trans(pos * delta);
       }
-    if (input.getKey(SDLK_f))
+    if (input.getKey(SDLK_s))
       {
 	pos.x = 10;
 	//_rotation.y = 0;
