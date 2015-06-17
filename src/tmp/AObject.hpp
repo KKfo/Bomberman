@@ -18,7 +18,7 @@ public:
   AObject(int x,int y,int z) :
     _position(x, y, z), // On initialise la position a 0
     _rotation(0, 0, 0), // pareil pour la rotation
-    _scale(1, 1, 1) // l'echelle est mise a 1
+    _scale(5, 5, 5) // l'echelle est mise a 1
   {
   }
 
@@ -86,8 +86,8 @@ protected:
 
 std::ostream& operator<<(std::ostream& os, glm::vec3& v)
 {
-  os << "pos x: " << v.x <<  " pos y: ";
-  os << v.y <<  "pos z: " << v.z;
+  os << " pos x: " << v.x <<  "  pos y: ";
+  os << v.y <<  "  pos z: " << v.z;
   return (os);
 }
 
@@ -229,7 +229,7 @@ public:
     // Et on dessine notre cube
     // std::cout << static_cast<float>(clock.getElapsed()) * _speed << std::endl;
     // std::cout << "pos x: " << _position.x <<  " pos y: " << _position.y <<  "pos z: " << _position.z << std::endl;
-    std::cout << _rotation << std::endl;
+    // std::cout << _rotation << std::endl;
     this->bomberman.draw(shader, getTransformation(), static_cast<float>(clock.getElapsed()));
   }
 
